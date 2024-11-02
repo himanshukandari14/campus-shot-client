@@ -145,7 +145,67 @@
     }
   );
 
+  //delete post
+  export const deletePost = createAsyncThunk(
+    "auth/deletePost",
+    async ({ postId, token }, { rejectWithValue }) => {
+      try {
+        const response = await axios.delete(
+          `${API_BASE_URL}/user/post/delete/${postId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              },
+          
+          }
+        );
+        return response.data;
+        }catch(err){
+           return rejectWithValue(err.response?.data || "Failed to delete post");
+        }
+      }
+  );
 
+  export const createComment = createAsyncThunk(
+    "auth/createComment",
+    async ({ postId, comment, token }, { rejectWithValue }) => {
+      try {
+        const response = await axios.post(
+          `${API_BASE_URL}/user/post/comment/${postId}`,
+          { text: comment },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return response.data;
+        }catch(err){
+          return rejectWithValue(err.response?.data || "Failed to create comment");
+          }
+          }
+  )
+
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+// Define the thunk action
+export const fetchOnePostComments = createAsyncThunk(
+  "posts/fetchOnePostComments",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/posts/${postId}/comments`
+      );
+      return response.data.comments; // Adjust according to your API response structure
+    } catch (error) {
+      // Handle errors and return a rejected value
+      return rejectWithValue(
+        error.response.data.message || "Failed to fetch comments"
+      );
+    }
+  }
+);
 
 
 
@@ -242,6 +302,47 @@
           state.posts = action.payload;
         })
         .addCase(createPost.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        })
+
+        // delete Post
+        .addCase(deletePost.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(deletePost.fulfilled, (state, action) => {
+          state.loading = false;
+          state.posts = action.payload;
+        })
+        .addCase(deletePost.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        })
+
+        // create comment on Post
+        .addCase(createComment.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(createComment.fulfilled, (state, action) => {
+          state.loading = false;
+          state.posts = action.payload;
+        })
+        .addCase(createComment.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        })
+
+        // craete comment on Post
+
+        .addCase(fetchOnePostComments.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(fetchOnePostComments.fulfilled, (state, action) => {
+          state.loading = false;
+          state.comments = action.payload; // Store fetched comments in the state
+        })
+
+        .addCase(fetchOnePostComments.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
         });

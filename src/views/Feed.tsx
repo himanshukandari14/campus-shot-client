@@ -55,7 +55,24 @@ const Feed = () => {
     );
   };
 
+
+  // Function to remove the deleted post from the feed state
+  const removePostFromFeed = (postId) => {
+    setPost((prevPosts) => prevPosts.filter((p) => p._id !== postId));
+  };
+
  
+
+  // Function to update comments in the feed
+  const updateCommentsInFeed = (postId, newComments) => {
+    setPost((prevPosts) =>
+      prevPosts.map((p) =>
+        p._id === postId
+          ? { ...p, comments: newComments }
+          : p
+      )
+    );
+  };
   if (error) return <div className="text-center text-red-600">Error: {error}</div>;
   if (!userData) return <div className="text-center">No user data available.</div>;
 
@@ -85,6 +102,8 @@ const Feed = () => {
                   comments={postItem?.comments}
                   createdAt={postItem?.createdAt}
                   onLikeUpdate={updateLikeInFeed}
+                  onDeleteUpdate={removePostFromFeed}
+                  onCommentUpdate={updateCommentsInFeed}
                 />
               ))}
             </div>
