@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
 import React, { useState } from 'react';
 import { sidebarOptions } from '../../../constants/sidebarOptions';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,6 +8,7 @@ const Sidebar = () => {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
+  console.log(user, 'sidebar');
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -35,13 +34,11 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`
-          fixed left-0 top-0 h-screen bg-white border-r border-gray-100
-          w-72 p-6 z-40 transition-all duration-300 transform
-          md:translate-x-0 md:w-64 lg:w-72 xl:w-80
-          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-          ${isSidebarOpen ? 'shadow-lg' : ''}
-        `}
+        className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-100
+        w-72 p-6 z-40 transition-all duration-300 transform
+        md:translate-x-0 md:w-64 lg:w-72 xl:w-80
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${isSidebarOpen ? 'shadow-lg' : ''}`}
       >
         {/* Profile Section */}
         <div className="flex items-center gap-3 mb-8 mt-8 md:mt-0">
@@ -70,7 +67,11 @@ const Sidebar = () => {
               return (
                 <li key={option.path}>
                   <Link
-                    to={option.path}
+                    to={
+                      option.name === 'Profile' && user
+                        ? `/my-profile?userId=${user._id}`
+                        : option.path
+                    }
                     onClick={() => {
                       if (window.innerWidth < 768) {
                         setIsSidebarOpen(false);

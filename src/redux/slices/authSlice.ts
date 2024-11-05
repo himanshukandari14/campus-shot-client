@@ -80,6 +80,19 @@
       }
     }
   )
+  // Fetch specific user data by user ID
+export const fetchSpecificUser = createAsyncThunk(
+  "auth/fetchSpecificUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
+      return response.data; // Return the specific user data
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 
   export const fetchAllPost= createAsyncThunk(
     "auth/fetchAllPost",
@@ -262,7 +275,18 @@ export const fetchOnePostComments = createAsyncThunk(
           state.loading = false;
           state.error = action.payload;
         })
-
+         // Fetch specific user actions
+      .addCase(fetchSpecificUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchSpecificUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.specificUserData = action.payload; // Store specific user data
+      })
+      .addCase(fetchSpecificUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
         .addCase(fetchAllPost.pending, (state, action) => {
           state.loading = true;
           state.error = action.payload;

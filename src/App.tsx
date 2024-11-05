@@ -16,12 +16,13 @@ const App: React.FC = () => {
         <Route path="/" element={<SignIn />} />
         <Route path="/accounts/emailsignup" element={<SignUp />} />
         <Route path="/verify-otp" element={<VerifyRegistration />} />
-        <Route path="/my-profile" element={<Profile />} />
         <Route path="/my/saved-Posts" element={<SavedPosts />} />
         <Route path="/Notifications" element={<Notification />} />
+         <Route path="/my-profile" element={<ProtectedRoute element={<Profile />} />} />
         
         {/* Protected Route for Feed */}
         <Route path="/feed" element={<ProtectedRoute element={<Feed />} />} />
+        {/* <Route path="/profile/:userId" element={<ProtectedRoute element={<Profile />} />} /> */}
         
         {/* Redirect to login by default */}
         <Route path="*" element={<Navigate to="/" replace />} />

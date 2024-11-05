@@ -35,5 +35,5 @@ export const sidebarOptions: SidebarOption[] = [
     icon: React.createElement(FaBookmark),
     path: "/saved-posts",
   },
-  { name: "Profile", icon: React.createElement(FaUser), path: "/profile" },
+  { name: "Profile", icon: React.createElement(FaUser), path: "/my-profile" },
 ];
