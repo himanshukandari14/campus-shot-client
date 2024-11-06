@@ -7,8 +7,11 @@ const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
   const username = userData.user.username;
   console.log(username);
   const name = userData.user.name;
-  const followers = userData.user.followers;
-  const following = userData.user.following;
+  const followers = userData.user.followers.length;
+  const following = userData.user.following.length;
+  console.log(userData);
+  console.log(loggedInUserId,'logged in');
+  console.log(urlUserId);
 
   return (
     <div className="relative">
@@ -42,8 +45,8 @@ const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
         <h2 className="text-xl font-medium text-gray-700">Mindful. Genius</h2>
         <p className="text-md text-gray-600">Tokyo, Japan</p>
         <div className="flex space-x-4 mt-2">
-          <span className="text-gray-900 font-bold">Followers: <span className="text-blue-600">{followers.length}</span></span>
-          <span className="text-gray-900 font-bold">Following: <span className="text-blue-600">{following.length}</span></span>
+          <span className="text-gray-900 font-bold">Followers: <span className="text-blue-600">{followers}</span></span>
+          <span className="text-gray-900 font-bold">Following: <span className="text-blue-600">{following}</span></span>
         </div>
         
         {/* Conditional Button Rendering */}

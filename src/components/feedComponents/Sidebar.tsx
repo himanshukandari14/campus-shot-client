@@ -11,7 +11,7 @@ const Sidebar = () => {
   const dispatch =useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
-  console.log(user, 'sidebar');
+  // console.log(user, 'sidebar');
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -76,7 +76,7 @@ const Sidebar = () => {
                   <Link
                     to={
                       option.name === 'Profile' && user
-                        ? `/my-profile?userId=${user._id}`
+                        ? `/profile?userId=${user._id}`
                         : option.path
                     }
                     onClick={() => {

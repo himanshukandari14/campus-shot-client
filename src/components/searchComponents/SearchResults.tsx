@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 import React from "react";
 import ResultCard from "./ResultCard";
 
 const SearchResults = ({ results }) => {
+  console.log(results,"result")
+  
   if (results.length === 0) {
     return (
       <p className="text-center text-gray-500">

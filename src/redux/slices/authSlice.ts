@@ -15,6 +15,7 @@
     userData: null, // Store fetched user data here
     posts: [],
     users: [],
+    specificUserData: null, // Store specific user data here
   };
 
   // Thunks for async actions like login/signup
@@ -81,19 +82,25 @@
       }
     }
   )
-  // Fetch specific user data by user ID
+
+
+  // fetch other  user data
 export const fetchSpecificUser = createAsyncThunk(
-  "auth/fetchSpecificUser",
-  async (userId, { rejectWithValue }) => {
+  'auth/fetchSpecificUser',
+  async ({ token, userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
+      // Make the API request using the token for authorization
+      const response = await axios.get(`${API_BASE_URL}/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Use token in the Authorization header
+        },
+      });
       return response.data; // Return the specific user data
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response.data); // Handle errors
     }
   }
 );
-
 
   export const fetchAllPost= createAsyncThunk(
     "auth/fetchAllPost",
@@ -300,6 +307,7 @@ export const fetchSearchUser = createAsyncThunk(
         })
         .addCase(fetchSpecificUser.fulfilled, (state, action) => {
           state.loading = false;
+         
           state.specificUserData = action.payload; // Store specific user data
         })
         .addCase(fetchSpecificUser.rejected, (state, action) => {

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-//@ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
@@ -39,7 +37,8 @@ const SearchInput = ({ onSearch, query, setQuery }) => {
         />
         <div
           onClick={handleSearch} // Trigger search on icon click
-          className="absolute right-3 top-3 cursor-pointer text-gray-500 hover:text-blue-500 justify-center items-center flex"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-blue-500 justify-center items-center flex"
+          style={{ fontSize: '1.5rem' }} // Make the icon larger
         >
           <FaSearch />
         </div>

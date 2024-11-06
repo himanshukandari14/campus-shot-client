@@ -19,7 +19,7 @@ const App: React.FC = () => {
         <Route path="/verify-otp" element={<VerifyRegistration />} />
         <Route path="/my/saved-Posts" element={<SavedPosts />} />
         <Route path="/Notifications" element={<Notification />} />
-         <Route path="/my-profile" element={<ProtectedRoute element={<Profile />} />} />
+         <Route path="profile" element={<ProtectedRoute element={<Profile />} />} />
         
         {/* Protected Route for Feed */}
         <Route path="/feed" element={<ProtectedRoute element={<Feed />} />} />
