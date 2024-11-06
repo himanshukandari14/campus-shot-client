@@ -8,6 +8,7 @@ import SavedPosts from './views/SavedPosts';
 import Notification from './views/Notification';
 import VerifyRegistration from './views/VerifyRegistration';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
+import Search from './views/Search';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         
         {/* Protected Route for Feed */}
         <Route path="/feed" element={<ProtectedRoute element={<Feed />} />} />
+         <Route path="/search" element={<ProtectedRoute element={<Search />} />} />
         {/* <Route path="/profile/:userId" element={<ProtectedRoute element={<Profile />} />} /> */}
         
         {/* Redirect to login by default */}

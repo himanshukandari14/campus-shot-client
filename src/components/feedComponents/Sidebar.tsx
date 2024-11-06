@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { sidebarOptions } from '../../../constants/sidebarOptions';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Menu, X } from 'lucide-react';
+import { logout } from '@/redux/slices/authSlice';
+import { IoLogOut } from "react-icons/io5";
 
 const Sidebar = () => {
   const location = useLocation();
+  const dispatch =useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   console.log(user, 'sidebar');
@@ -14,6 +17,10 @@ const Sidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
+  const handleLogout = ()=>{
+    dispatch(logout());
+  }
   return (
     <>
       {/* Mobile Toggle Button - Always visible on small screens */}
@@ -103,6 +110,17 @@ const Sidebar = () => {
             })}
           </ul>
         </nav>
+
+         {/* Logout Button */}
+        <div className="mt-6">
+          <button
+            onClick={handleLogout}
+            className="flex items-center px-4 py-3 rounded-xl w-full transition-all duration-200 text-gray-700 hover:bg-gray-50"
+          >
+            <span className="mr-3 text-lg text-gray-500"><IoLogOut /></span> {/* You can replace this with an appropriate icon */}
+            <span className="font-medium text-sm">Logout</span>
+          </button>
+        </div>
 
         {/* Download App Button */}
         <div className="mt-auto pt-8">

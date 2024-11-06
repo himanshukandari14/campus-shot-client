@@ -8,6 +8,7 @@ import {
   FaBell,
   FaBookmark,
   FaUser,
+  FaSearch,
 } from "react-icons/fa";
 
 interface SidebarOption {
@@ -19,6 +20,7 @@ interface SidebarOption {
 export const sidebarOptions: SidebarOption[] = [
   // Using type assertion to help TypeScript understand these are valid ReactElements
   { name: "New Feed", icon: React.createElement(FaHome), path: "/feed" },
+  { name: "Search", icon: React.createElement(FaSearch), path: "/search" },
   {
     name: "Messages",
     icon: React.createElement(FaEnvelope),
@@ -35,5 +37,6 @@ export const sidebarOptions: SidebarOption[] = [
     icon: React.createElement(FaBookmark),
     path: "/saved-posts",
   },
+
   { name: "Profile", icon: React.createElement(FaUser), path: "/my-profile" },
 ];

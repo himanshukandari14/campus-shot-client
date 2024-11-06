@@ -37,7 +37,7 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="max-w-[900px] flex justify-center bg-red-500 min-h-[100px]">
+      <div className="max-w-[900px] flex justify-center shadow-lg bg-white min-h-[100px]">
         <div className="w-full">
           {userData ? (
             <>

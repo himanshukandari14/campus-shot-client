@@ -1,6 +1,6 @@
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-nocheck
-  import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+  import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
   import axios from "axios";
 
 
@@ -14,6 +14,7 @@
     error: null,
     userData: null, // Store fetched user data here
     posts: [],
+    users: [],
   };
 
   // Thunks for async actions like login/signup
@@ -199,9 +200,6 @@ export const fetchSpecificUser = createAsyncThunk(
           }
   )
 
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
 // Define the thunk action
 export const fetchOnePostComments = createAsyncThunk(
   "posts/fetchOnePostComments",
@@ -221,6 +219,26 @@ export const fetchOnePostComments = createAsyncThunk(
 );
 
 
+export const fetchSearchUser = createAsyncThunk(
+  "user/fetchSearchUser",
+  async ({ searchTerm, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/search-users?query=${searchTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.users; // Assuming the response has a 'users' field containing the search results
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to search users"
+      );
+    }
+  }
+);
 
   export const authSlice = createSlice({
     name: "auth",
@@ -231,6 +249,7 @@ export const fetchOnePostComments = createAsyncThunk(
         state.token = null;
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        console.log('logout')
       },
     },
     extraReducers: (builder) => {
@@ -275,18 +294,18 @@ export const fetchOnePostComments = createAsyncThunk(
           state.loading = false;
           state.error = action.payload;
         })
-         // Fetch specific user actions
-      .addCase(fetchSpecificUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchSpecificUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.specificUserData = action.payload; // Store specific user data
-      })
-      .addCase(fetchSpecificUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+        // Fetch specific user actions
+        .addCase(fetchSpecificUser.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(fetchSpecificUser.fulfilled, (state, action) => {
+          state.loading = false;
+          state.specificUserData = action.payload; // Store specific user data
+        })
+        .addCase(fetchSpecificUser.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        })
         .addCase(fetchAllPost.pending, (state, action) => {
           state.loading = true;
           state.error = action.payload;
@@ -369,6 +388,19 @@ export const fetchOnePostComments = createAsyncThunk(
         .addCase(fetchOnePostComments.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
+        })
+
+        .addCase(fetchSearchUser.pending, (state) => {
+          state.loading = true;
+          state.error = null; // Reset previous error
+        })
+        .addCase(fetchSearchUser.fulfilled, (state, action) => {
+          state.loading = false;
+          state.users = action.payload; // Store the search results in 'users' state
+        })
+        .addCase(fetchSearchUser.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload; // Set the error message
         });
     },
   });

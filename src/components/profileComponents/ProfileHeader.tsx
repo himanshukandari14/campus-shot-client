@@ -1,7 +1,11 @@
+import { VerifiedIcon } from 'lucide-react';
 import React from 'react';
+import verifiedTick from '../../assets/SVG/verifiedTick.svg'
+
 
 const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
   const username = userData.user.username;
+  console.log(username);
   const name = userData.user.name;
   const followers = userData.user.followers;
   const following = userData.user.following;
@@ -28,7 +32,13 @@ const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
 
       {/* Profile Information */}
       <div className="flex flex-col items-center justify-center p-4 mt-24 text-center">
-        <h1 className="text-3xl font-bold">{name}</h1>
+        <div className="text-3xl font-bold flex gap-2 justify-start items-center">
+          {name}
+          {username === 'Tsukuyomi' && (
+            <img src={ verifiedTick} height={30} width={30} alt="" />
+          
+          )}
+        </div>
         <h2 className="text-xl font-medium text-gray-700">Mindful. Genius</h2>
         <p className="text-md text-gray-600">Tokyo, Japan</p>
         <div className="flex space-x-4 mt-2">
