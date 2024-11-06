@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchInput from '../components/searchComponents/SearchInput';
 import SearchResults from '../components/searchComponents/SearchResults';
@@ -26,7 +26,7 @@ const Search = () => {
     <Layout>
       <div className="max-w-[900px] flex shadow-lg bg-white min-h-[100vh]">
         <div className="w-full flex items-center flex-col mx-auto px-4 py-4">
-          <SearchInput query={query} setQuery={setQuery} onSearch={() => handleSearch(query)} />
+          <SearchInput query={query} setQuery={setQuery} onSearch={handleSearch} />
           {loading && <div>Loading...</div>}
           {error && <div>{error}</div>}
           {users && users.length > 0 && <SearchResults results={users} />}
