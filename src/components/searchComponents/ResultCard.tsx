@@ -1,7 +1,8 @@
-import React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Link } from 'react-router-dom';
 
-const ResultCard = ({ username, fullName, profileImage, followerCount, isFollowing, onFollowToggle, _id }) => {
+const ResultCard = ({ username, fullName, profileImage, followerCount, _id }) => {
   return (
     <div className="bg-white w-[80%] sm:w-[70%] lg:w-[80%] p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-4">
       <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-300">

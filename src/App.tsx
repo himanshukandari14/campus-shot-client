@@ -5,7 +5,7 @@ import SignUp from './views/SignUp';
 import SignIn from './views/SignIn';
 import Profile from './views/Profile';
 import SavedPosts from './views/SavedPosts';
-import Notification from './views/Notification';
+
 import VerifyRegistration from './views/VerifyRegistration';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Search from './views/Search';

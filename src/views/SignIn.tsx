@@ -1,4 +1,4 @@
-import React from 'react';
+
 import LoginForm from '@/components/authComponents/LoginForm';
 import mobile from '../assets/images/mobile.png';
 import intro from '../assets/images/intro-video.mp4';

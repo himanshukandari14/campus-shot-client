@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+import  { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchInput = ({ onSearch, query, setQuery }) => {

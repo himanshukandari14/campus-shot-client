@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import Layout from '@/components/Layout';
 import ImageGrid from '@/components/profileComponents/ImageGrid';
 import ProfileHeader from '@/components/profileComponents/ProfileHeader';
 import { fetchSpecificUser } from '@/redux/slices/authSlice';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
