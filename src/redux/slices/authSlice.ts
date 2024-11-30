@@ -8,8 +8,8 @@
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const initialState = {
-    user: null,
-    token: null,
+    user: JSON.parse(localStorage.getItem("user")) || null,
+    token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
     userData: null, // Store fetched user data here
@@ -247,6 +247,27 @@ export const fetchSearchUser = createAsyncThunk(
   }
 );
 
+export const follow = createAsyncThunk(
+  "user/follow",
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      console.log('Dispatching follow action');
+      const response = await axios.post(`${API_BASE_URL}/user/follow/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('Follow action response:', response.data);
+      return response.data.users;
+    } catch (error) {
+      console.error('Follow action error:', error.response?.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to follow"
+      );
+    }
+  }
+);
+
   export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -307,7 +328,7 @@ export const fetchSearchUser = createAsyncThunk(
         })
         .addCase(fetchSpecificUser.fulfilled, (state, action) => {
           state.loading = false;
-         
+
           state.specificUserData = action.payload; // Store specific user data
         })
         .addCase(fetchSpecificUser.rejected, (state, action) => {
@@ -407,6 +428,21 @@ export const fetchSearchUser = createAsyncThunk(
           state.users = action.payload; // Store the search results in 'users' state
         })
         .addCase(fetchSearchUser.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload; // Set the error message
+        })
+
+
+        // follow a user
+        .addCase(follow.pending, (state) => {
+          state.loading = true;
+          state.error = null; // Reset previous error
+        })
+        .addCase(follow.fulfilled, (state, action) => {
+          state.loading = false;
+          state.users = action.payload; // Store the search results in 'users' state
+        })
+        .addCase(follow.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload; // Set the error message
         });

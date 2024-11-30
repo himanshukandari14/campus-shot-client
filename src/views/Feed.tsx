@@ -29,6 +29,7 @@ const Feed = () => {
       dispatch(fetchAllPost(storedToken));
     } else {
       navigate('/login');
+      alert('no token')
     }
   }, [dispatch, navigate]);
 

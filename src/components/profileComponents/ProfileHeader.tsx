@@ -1,9 +1,23 @@
+//@ts-nocheck
 import { VerifiedIcon } from 'lucide-react';
 import React from 'react';
 import verifiedTick from '../../assets/SVG/verifiedTick.svg'
-
+import { useDispatch } from 'react-redux';
+import { follow } from '../../redux/slices/authSlice';
 
 const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
+  const dispatch = useDispatch();
+
+  const handleFollow = () => {
+    console.log('clicked  follow')
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(follow({ id: urlUserId, token }));
+    } else {
+      console.error('User is not authenticated');
+    }
+  };
+
   const username = userData.user.username;
   console.log(username);
   const name = userData.user.name;
@@ -55,7 +69,7 @@ const ProfileHeader = ({ userData, loggedInUserId, urlUserId }) => {
             Edit Profile
           </button>
         ) : (
-          <button className="mt-4 px-14 py-2 bg-[#000000] text-white rounded-md shadow-md hover:bg-[#011827] transition duration-300">
+          <button onClick={handleFollow} className="mt-4 px-14 py-2 bg-[#000000] text-white rounded-md shadow-md hover:bg-[#011827] transition duration-300">
             Follow
           </button>
         )}

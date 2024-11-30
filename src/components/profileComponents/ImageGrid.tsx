@@ -9,9 +9,9 @@ const ImageGrid = ({ posts }) => {
   return (
     <div className="flex flex-wrap justify-start">
       {posts && posts.length > 0 ? (
-        posts.map((post, index) => (
+        posts.slice().reverse().map((post, index) => (
           post?.media ? (  // Ensure media exists in each post
-            <div key={index} className="overflow-hidden shadow-md h-[300px] w-[300px] m-2">
+            <div key={index} className="overflow-hidden shadow-md h-[281px] w-[281px] m-2">
               <img 
                 src={post?.media} // Assuming each post object has a media field for images
                 alt={`Post ${index}`} 

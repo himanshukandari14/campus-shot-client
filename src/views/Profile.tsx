@@ -9,11 +9,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const { specificUserData } = useSelector((state) => state.auth);
-    const { userData } = useSelector((state) => state.auth);
-    const loggedInUser=userData.user;
-    console.log(loggedInUser,'ye hai logegdin')
-  
-  
+  const { userData } = useSelector((state) => state.auth);
+
+  const loggedInUser = userData ? userData.user : null;
 
   const [userId, setUserId] = useState(null); // State to hold userId
 
@@ -50,10 +48,10 @@ const Profile = () => {
             <>
               <ProfileHeader 
                 userData={specificUserData} // Pass the fetched user data here
-                loggedInUserId={loggedInUser._id} // Use _id from specificUserData
+                loggedInUserId={loggedInUser ? loggedInUser._id : null} // Check if loggedInUser is not null
                 urlUserId={userId} 
               />
-                <ImageGrid posts={specificUserData.user.posts} /> {/* Pass posts to ImageGrid */}
+              <ImageGrid posts={specificUserData.user.posts} /> {/* Pass posts to ImageGrid */}
             </>
           ) : (
             <div className="text-center">No user data available.</div>

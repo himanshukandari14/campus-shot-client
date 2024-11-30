@@ -18,7 +18,7 @@ const App: React.FC = () => {
         <Route path="/accounts/emailsignup" element={<SignUp />} />
         <Route path="/verify-otp" element={<VerifyRegistration />} />
         <Route path="/my/saved-Posts" element={<SavedPosts />} />
-        <Route path="/Notifications" element={<Notification />} />
+       
          <Route path="profile" element={<ProtectedRoute element={<Profile />} />} />
         
         {/* Protected Route for Feed */}
