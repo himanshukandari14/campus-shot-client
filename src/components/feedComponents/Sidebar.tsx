@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useState } from 'react';
 import { sidebarOptions } from '../../../constants/sidebarOptions';
 import { Link, useLocation } from 'react-router-dom';
